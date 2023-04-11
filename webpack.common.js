@@ -46,6 +46,13 @@ module.exports = {
         type: 'javascript/auto',
         use: ['@svgr/webpack'],
       },
+      {
+        test: /\.scss$/,
+        include: [
+          path.resolve(__dirname, 'src', 'styles', 'css')
+        ],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+      }
     ],
   },
   plugins: [

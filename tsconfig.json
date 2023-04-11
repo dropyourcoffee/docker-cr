@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "lib": ["ES2020", "DOM"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "jsx": "react",                                /* Specify what JSX code is generated. */
+    "jsx": "react-jsx",                                /* Specify what JSX code is generated. */
+    "jsxImportSource": "@emotion/react",
 
     "module": "commonjs",                                /* Specify what module code is generated. */
     "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
@@ -14,7 +15,9 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@typings/*": ["typings/*"],
-      "@store": ["store"]
+      "@store": ["store"],
+      "@styles/*": ["src/styles/*"],
+      "@styles": ["src/styles"]
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     "resolveJsonModule": true,                        /* Enable importing .json files. */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
@@ -22,10 +25,13 @@
 
     "strict": true,                                      /* Enable all strict type-checking options. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
-
   },
+
   "include": [
-    "src"
-  ]
+    "src",
+    "src/interfaces/*.d.ts"
+
+  ],
+  "typeRoots": ["interfaces"]
+
 }

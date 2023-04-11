@@ -1,15 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import './index.css';
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import GlobalStyles from "@styles/globalStyles";
+import "@styles/css/global.scss";
+import { ThemeProvider } from "@emotion/react";
+import { defaultColor } from "@styles/colors";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const colorTheme = {
+  color: defaultColor,
+};
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={colorTheme}>
+      <GlobalStyles />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
