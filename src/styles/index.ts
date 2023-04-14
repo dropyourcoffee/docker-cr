@@ -18,7 +18,7 @@ export const zIndex = {
 };
 
 export const borderStyle = (color?: string) => css`
-  border: solid 1px ${color || Colors.primary6};
+  border: solid 1px ${color || Colors.primary};
 `;
 
 export const borderTopStyle = (theme: Theme) => css`
@@ -66,7 +66,7 @@ export const dimOpacityStyle = css`
 export const selectOpacityStyle = css`
   &:focus-within {
     opacity: 0.8;
-    // background-color: ${Colors.primary6};
+    // background-color: ${Colors.primary};
   }
 `;
 
@@ -161,7 +161,7 @@ export const scrollbarStyle = (theme: Theme) => css`
   ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: ${theme.color.primary6};
+    background: ${theme.color.primary};
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   }
 `;

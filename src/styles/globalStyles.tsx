@@ -13,6 +13,8 @@ const GlobalStyles = () => {
           font-family: Titillium Web, -apple-system, BlinkMacSystemFont,
             Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
             Helvetica Neue, Titillium Web sans-serif;
+          color: ${theme.color.textPrimary};
+          background-color: ${theme.color.backgroundPrimary};
         }
 
         a {
