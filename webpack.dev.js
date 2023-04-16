@@ -6,7 +6,9 @@ module.exports = merge(common, {
   mode: "development",
   devServer: {
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      index:"/"
+    },
   },
   devtool: "eval-source-map",
   plugins: [new ReactRefreshWebpackPlugin()],
