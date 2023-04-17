@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "lib": ["ES2020", "DOM"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "lib": ["es2018", "dom"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     "jsx": "react-jsx",                                /* Specify what JSX code is generated. */
     "jsxImportSource": "@emotion/react",
 
@@ -10,7 +10,7 @@
     "baseUrl": ".",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
       "@components/*": ["src/components/*"],
-      "@containers": ["src/containers/*"],
+      "@containers/*": ["src/containers/*"],
       "@config/*": ["src/config/*"],
       "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
