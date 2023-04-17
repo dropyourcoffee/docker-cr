@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, BrowserRouter as Router,  Routes} from 'react-router-dom';
-import Layout from "./containers/Layout";
-import MainBody from "./containers/MainBody";
+import Layout from "@containers/Layout";
+import MainBody from "@containers/MainBody";
 import MainPage from "@pages/Main";
 import ImagePage from "@pages/Image";
-import Header from "@components/Header";
+import Header from "@components/organisms/Header";
 
 function App() {
 

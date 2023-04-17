@@ -1,9 +1,9 @@
-
+import MainTemplate from "@components/templates/MainTemplate";
 
 const Main = () =>{
-  return(<div>
-    Home
-  </div>)
+  return(<>
+    <MainTemplate/>
+  </>)
 };
 
 

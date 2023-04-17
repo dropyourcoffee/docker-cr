@@ -34,8 +34,8 @@ export interface ThemeColors {
   divider?: string;
 }
 
-const toPrimaryDark = compose(adjustHue(10), desaturate(0.31), lighten(0.05));
-const toPrimaryLight = compose(adjustHue(0), desaturate(0.72), lighten(0.28));
+export const toPrimaryDark = compose(adjustHue(10), desaturate(0.31), lighten(0.05));
+export const toPrimaryLight = compose(adjustHue(0), desaturate(0.72), lighten(0.28));
 
 const extraColors = {
   // selectBoxBorder: "#9DA6AD",
