@@ -1,9 +1,10 @@
-import {css, useTheme } from "@emotion/react";
-import {useMemo} from "react";
+import {BsFillBoxFill} from "react-icons/bs";
+import {NavLink} from "react-router-dom";
+import { css } from "@emotion/react";
 import { flexCenter, flexRow } from "@styles";
 import * as Typography from "@styles/typography";
-import {BsFillBoxFill} from "react-icons/bs";
 import Divider from "@components/atoms/Divider";
+import {useThemedStyle} from "@hooks/useThemedStyle";
 
 export interface ImageCardProps {
   name: string;
@@ -21,9 +22,7 @@ const cardBody = css`
 
 const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
 
-  const theme = useTheme();
-
-  const cardWrap = useMemo(()=>css`
+  const cardWrap = useThemedStyle(theme => css`
     border: 1px solid ${theme.color.borderPrimary};
     ${flexRow};
     height: 140px;
@@ -31,9 +30,9 @@ const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
     &:hover{
       box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
     }
-  `,[]);
+  `,);
 
-  return (<div css={cardWrap} className={'imagecard'}>
+  return (<NavLink to={`/im/${name}`} css={cardWrap} className={'imagecard'}>
     <div css={css`
       min-width: 80px;
       ${flexCenter}`}
@@ -62,7 +61,7 @@ const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
     </div>
 
 
-  </div>);
+  </NavLink>);
 
 };
 

@@ -11,7 +11,7 @@ const bodyWrap = css`
   padding: 1em 0.5em;
   
   & {
-    div.imagecard {
+    .imagecard {
       margin: 0.5rem;
     }
   }
@@ -37,7 +37,7 @@ const MainTemplate = ()=>{
           {name: 'bar', author:"dropyourcoffee", desc:"Up-to-date Image", lastUpdate:new Date(), nTags: 2},
           {name: 'baz', author:"dropyourcoffee", lastUpdate:new Date('2023-04-01'), nTags: 2}
         ]);
-      },1500);
+      },600);
     });
 
     setImages(imgs);

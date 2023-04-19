@@ -1,16 +1,20 @@
 import {useParams} from "react-router";
+import {Navigate} from "react-router-dom";
+import ImageTemplate from "@components/templates/ImageTemplate";
 
 // export interface ImagePageProps {
 //   tag: string;
 // }
 
 const Image = ()=>{
-  const {tag} = useParams();
-  console.log(`tag ${tag}`);
+  const {im} = useParams();
 
-  return(<div>
-      Page for image, {tag}
-    </div>);
+  if (!im)
+    return <Navigate to={'/'}/>
+  else
+    return(<>
+        <ImageTemplate img={im}/>
+      </>);
 
 };
 
