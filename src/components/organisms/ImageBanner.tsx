@@ -3,13 +3,10 @@ import {css} from "@emotion/react";
 import {useThemedStyle} from "@hooks/useThemedStyle";
 import { flexCenter, flexRow } from "@styles";
 import { BsFillBoxFill } from "react-icons/bs";
+import {ImageProfile} from "@typedef/models";
 
-export interface ImageBannerProps {
-  imageName: string,
-  author?: string,
-  size?: number,
-  desc?: string,
-  lastUpdate?: Date,
+
+export interface ImageBannerProps extends Omit<ImageProfile, 'nTags'> {
 
 }
 
@@ -20,8 +17,7 @@ const BannerInner = css`
       height: 180px;
 `;
 
-const ImageBanner = ({imageName, author, size, desc, lastUpdate}:ImageBannerProps)=>{
-  // const theme = useTheme();
+const ImageBanner = ({name:imageName, author, size, desc, lastUpdate}:ImageBannerProps)=>{
 
   const BannerWrap = useThemedStyle(theme => css`
       width: 100%;
@@ -29,7 +25,6 @@ const ImageBanner = ({imageName, author, size, desc, lastUpdate}:ImageBannerProp
       border-bottom: 1px solid ${theme.color.borderPrimary};
   `);
 
-  // name: 'bar', author:"dropyourcoffee", desc:"Up-to-date Image", lastUpdate:new Date(), nTags: 2
   return (
     <div css={BannerWrap}>
       <div className={'container'} css={BannerInner}>

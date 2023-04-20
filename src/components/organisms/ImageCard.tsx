@@ -5,13 +5,9 @@ import { flexCenter, flexRow } from "@styles";
 import * as Typography from "@styles/typography";
 import Divider from "@components/atoms/Divider";
 import {useThemedStyle} from "@hooks/useThemedStyle";
+import {ImageProfile} from "@typedef/models";
 
-export interface ImageCardProps {
-  name: string;
-  author?: string;
-  lastUpdate?: Date;
-  desc?: string;
-  nTags?: number;
+export interface ImageCardProps extends Omit<ImageProfile, 'size'> {
 
 }
 

@@ -2,25 +2,19 @@ import ImageBanner from "@components/organisms/ImageBanner";
 import {useState, useEffect} from "react";
 import { useLoadingCallback } from "@hooks/useLoadingCallback";
 import { ImageCardProps } from "@components/organisms/ImageCard";
+import * as Typography from "@styles/typography";
+import {reqImageProfile} from "@api/image";
 
 export interface ImageTemplateProps {
   img: string;
 }
 
-const ImageTemplate = ({img}: ImageTemplateProps)=>{
+const ImageTemplate = ({img:name}: ImageTemplateProps)=>{
 
-  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name:img});
+  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name, nTags:0});
 
   const {callback:loadImage, isLoading} = useLoadingCallback(async()=>{
-
-    const img: ImageCardProps = await new Promise((resolve, _)=>{
-      setTimeout(()=>{
-        resolve({
-            name: imgInfo.name, author:"dropyourcoffee", desc:"Up-to-date Image", lastUpdate:new Date(), nTags: 2
-        });
-      },600);
-    });
-
+    const img: ImageCardProps = await reqImageProfile(name);
     setImgInfo(img);
 
   },[]);
@@ -30,7 +24,13 @@ const ImageTemplate = ({img}: ImageTemplateProps)=>{
   },[]);
 
   return(<div>
-    <ImageBanner imageName={imgInfo.name} {...imgInfo}/>
+    <ImageBanner {...imgInfo}/>
+    <div className={'container'}>
+
+      <Typography.Headline4>
+        Tags
+      </Typography.Headline4>
+    </div>
   </div>);
 };
 
