@@ -1,7 +1,11 @@
 import {BsFillBoxFill} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
 import { css } from "@emotion/react";
-import { flexCenter, flexRow } from "@styles";
+import {
+  flexCenter,
+  flexRow,
+  popupShadowStyleOnHover,
+} from "@styles";
 import * as Typography from "@styles/typography";
 import Divider from "@components/atoms/Divider";
 import {useThemedStyle} from "@hooks/useThemedStyle";
@@ -18,17 +22,17 @@ const cardBody = css`
 
 const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
 
+  // console.log(shadowStyleOnHover);
+  // console.log(shadowStyle);
   const cardWrap = useThemedStyle(theme => css`
     border: 1px solid ${theme.color.borderPrimary};
-    ${flexRow};
+    ${flexRow}
     height: 140px;
     padding: 0.5em;
-    &:hover{
-      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
-    }
+    ${popupShadowStyleOnHover}
   `,);
 
-  return (<NavLink to={`/im/${name}`} css={cardWrap} className={'imagecard'}>
+  return (<NavLink to={`/im/${name}`} css={cardWrap} className={'imagecard'} >
     <div css={css`
       min-width: 80px;
       ${flexCenter}`}

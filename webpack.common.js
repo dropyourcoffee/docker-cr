@@ -15,6 +15,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@typedef': path.resolve(__dirname, 'src/typedef'),
+      '@util': path.resolve(__dirname, 'src/util'),
     },
 
   },
