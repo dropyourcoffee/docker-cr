@@ -6,6 +6,7 @@ import { flexCenter } from "@styles";
 import ImageCard from "@components/organisms/ImageCard";
 import {ImageCardProps} from "@components/organisms/ImageCard";
 import {reqFetchImages} from "@api/image";
+import {ClipLoader} from "react-spinners";
 
 const bodyWrap = css`
   padding: 1em 0.5em;
@@ -51,7 +52,7 @@ const MainTemplate = ()=>{
       />
 
       {isLoading && <div css={css`${flexCenter}; height: 100px;`}>
-        <p>Loading...</p>
+        <ClipLoader/>
       </div>}
       {!isLoading && images.length &&
         <div css={bodyWrap}>
