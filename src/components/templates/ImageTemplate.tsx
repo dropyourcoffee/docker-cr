@@ -1,14 +1,15 @@
-import ImageBanner from "@components/organisms/ImageBanner";
 import {useState, useEffect} from "react";
-import { useLoadingCallback } from "@hooks/useLoadingCallback";
-import { ImageCardProps } from "@components/organisms/ImageCard";
-import * as Typography from "@styles/typography";
-import { reqImageProfile, reqImageTagList } from "@api/image";
-import {css} from "@emotion/react";
-import { useThemedStyle } from "@hooks/useThemedStyle";
-import { ImageTag } from "@typedef/models";
-import { flexCenter } from "@styles";
 import {ClipLoader} from "react-spinners";
+import {css} from "@emotion/react";
+
+import { ImageTag } from "@typedef/models";
+import { reqImageProfile, reqImageTagList } from "@api/image";
+import { useLoadingCallback } from "@hooks/useLoadingCallback";
+import { useThemedStyle } from "@hooks/useThemedStyle";
+import { flexCenter } from "@styles";
+import * as Typography from "@styles/typography";
+import ImageBanner from  "@components/organisms/ImageBanner";
+import { ImageCardProps } from "@components/organisms/ImageCard";
 import ImageTagCard from "@components/organisms/ImageTagCard";
 
 export interface ImageTemplateProps {

@@ -1,4 +1,5 @@
 import { Navigate, useParams } from "react-router";
+import HistoryTemplate from "@components/templates/HistoryTemplate";
 
 const History = ()=>{
   const {im} = useParams();
@@ -6,9 +7,9 @@ const History = ()=>{
   if (!im)
     return <Navigate to={'/'}/>
   else
-    return(<>
-      history page for {im}
-    </>);
+    return(
+      <HistoryTemplate img={im}/>
+    );
 
 
 };
