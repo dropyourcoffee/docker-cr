@@ -4,6 +4,7 @@ import Layout from "@containers/Layout";
 import MainBody from "@containers/MainBody";
 import MainPage from "@pages/Main";
 import ImagePage from "@pages/Image";
+import HistoryPage from "@pages/Image/History";
 import Header from "@components/organisms/Header";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Routes>  {/* Group of routes */}
               <Route path="/" element={<MainPage/>} />
               <Route path="/im/:im" element={<ImagePage/>} />
+              <Route path="/im/:im/history" element={<HistoryPage/>} />
             </Routes>
           </MainBody>
         </Layout>
