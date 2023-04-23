@@ -70,6 +70,7 @@ const makeColor = () : ThemeColors => {
     accent2: "#2E3B43",
 
     backgroundPrimary: "#fefffe",
+    backgroundSecondary: "#f0f0f1",
     backgroundAccent: "#2E3B43",
     backgroundError: "#FFE6E6",
     backgroundNav: "#082775",

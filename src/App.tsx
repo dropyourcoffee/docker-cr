@@ -16,7 +16,7 @@ function App() {
           <MainBody>
             <Routes>  {/* Group of routes */}
               <Route path="/" element={<MainPage/>} />
-              <Route path="/tags/:tag" element={<ImagePage/>} />
+              <Route path="/im/:im" element={<ImagePage/>} />
             </Routes>
           </MainBody>
         </Layout>

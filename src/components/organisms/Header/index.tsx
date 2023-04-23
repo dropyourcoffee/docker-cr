@@ -1,7 +1,9 @@
-import {useTheme, css, Theme} from "@emotion/react";
-import {flexRow, zIndex} from "@styles";
+import { css } from "@emotion/react";
+import { flexRow, flexRowBetween, zIndex } from "@styles";
 import {HEADER_HEIGHT} from "@config/constants";
 import {NavLink} from "react-router-dom";
+import {FaDocker} from "react-icons/fa";
+import {useThemedStyle} from "@hooks/useThemedStyle";
 
 const headerWrap = css`
   position: fixed;
@@ -10,28 +12,28 @@ const headerWrap = css`
   z-index: ${zIndex.header};
 `;
 
-const headerContainerStyle = (theme:Theme) => css`
-  background-color: ${theme.color.backgroundNav};
-  color:${theme.color.textNav};
-  height:${HEADER_HEIGHT};
-`;
 
 const Header = ()=>{
 
-  const theme = useTheme();
+  const headerContainerStyle = useThemedStyle(theme => css`
+    background-color: ${theme.color.backgroundNav};
+    color:${theme.color.textNav};
+    height:${HEADER_HEIGHT};
+    & div{
+      height:100%;
+    }
+  `);
 
   return(<header css={headerWrap}>
     <nav>
-      <div css={headerContainerStyle(theme)}>
-        <ul css={css`
-              ${flexRow}
-              & {
-                li {padding:10px;}
-              }
-            `}>
-          <li><NavLink to={'/tags/foo'}>foo</NavLink></li>
-          <li><NavLink to={'/tags/bar'}>bar</NavLink></li>
-        </ul>
+      <div css={headerContainerStyle}>
+        <div css={flexRow}>
+
+          <NavLink to={'/'} css={[flexRowBetween, css`margin:5px;`]}>
+            <FaDocker size={40}/>
+          </NavLink>
+
+        </div>
       </div>
     </nav>
   </header>);

@@ -30,16 +30,18 @@ export const borderBottomStyle = (theme: Theme) => css`
 `;
 
 export const shadowStyle = css`
-  box-shadow: inset 0 0 0 0 ${Colors.divider};
+  box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.15);
 `;
 
+
 export const shadowTopStyle = css`
-  box-shadow: inset 0 1px 0 0 ${Colors.divider};
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.15);
 `;
 
 export const shadowBottomStyle = css`
-  box-shadow: inset 0 -1px 0 0 ${Colors.divider};
+  box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.15);
 `;
+
 
 export const popupShadowStyle = css`
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.12);
@@ -47,6 +49,12 @@ export const popupShadowStyle = css`
 
 export const popupBackgroundStyle = css`
   background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const popupShadowStyleOnHover = css`
+  &:hover{
+    ${popupShadowStyle}
+  }
 `;
 
 export const notDraggable = css`
