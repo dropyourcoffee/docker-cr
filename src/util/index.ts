@@ -1,5 +1,4 @@
 
-
 export const timeSince = (date : Date) => {
 
   let seconds = Math.abs((new Date().getTime() - date.getTime()) / 1000);
@@ -40,4 +39,4 @@ export const  formatBytes = (bytes:number, decimals:number = 2)=>{
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-}
+};

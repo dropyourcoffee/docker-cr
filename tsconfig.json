@@ -33,6 +33,6 @@
     "src/types/*.d.ts"
 
   ],
-  "typeRoots": ["interfaces"]
+  "typeRoots": ["src/typedef"]
 
 }
