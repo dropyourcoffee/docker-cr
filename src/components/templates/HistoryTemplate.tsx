@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {css} from "@emotion/react";
 
 import { ImageBlob } from "@typedef/models";
@@ -19,6 +19,7 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
 
   const [imgInfo, setImgInfo] = useState<ImageCardProps>({name, nTags:0});
   const [imgBlob, setImgBlob] = useState<Partial<ImageBlob>>({});
+  const [layerSel, setLayerSel] = useState<number|null>(null);
 
   const {callback:loadImage, isLoading: isLoadingImages} = useLoadingCallback(async()=>{
 
@@ -55,46 +56,22 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
     ${flexRowBetween}
     width: 100%;
     margin-top: 2em;
-    
-    & > .lcontainer {
-      flex: 2;
-      border: 1px solid ${theme.color.borderPrimary};
-      padding: 1em;
-      
-      .lrow{
-        ${flexRow}
-         background-color: ${theme.color.backgroundPrimary};
-         border: 1px solid ${theme.color.borderPrimary};
-         &:hover {
-           background-color: ${theme.color.borderPrimary};
-         }
-         
-       .rownum {
-         min-width: 30px;
-         text-align: center;
-         padding: 1rem;
-       }
-       .ctx {
-         flex: 1;
-         padding: 1rem;
-       }
-      }
-    }
+    height: 50vh;
   `);
 
   const layerBlock = useThemedStyle(theme=>css`
-    flex: 2;
-    border: 1px solid ${theme.color.borderPrimary};
-    padding: 1em;
-    height: 50vh;
+    width: 40%;
+    background-color: ${theme.color.backgroundPrimary};
+    height: 100%;
     overflow-y: scroll;
     
-    .lrow{
+    .lrow {
       ${flexRow}
        background-color: ${theme.color.backgroundPrimary};
-       border: 1px solid ${theme.color.borderPrimary};
+       border-top: 1px solid ${theme.color.borderPrimary};
+       border-bottom: 1px solid ${theme.color.borderPrimary};
        &:hover {
-         background-color: ${theme.color.borderPrimary};
+         background-color: ${theme.color.backgroundSecondary};
        }
        
      .rownum {
@@ -102,20 +79,48 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
        text-align: center;
        padding: 1rem;
      }
+     
      .ctx {
        flex: 1;
        padding: 1rem;
      }
+     
+    }
+    
+    .lrow.selected {
+       background-color: ${theme.color.borderPrimary};
     }
     
   `);
 
   const cmdBlock = useThemedStyle(theme => css`
-    flex: 3;
-    border: 1px solid black;
+    width: 60%;
     padding: 1em;
-    ${flexColumn}
+    height: 100%;
+    & > p {
+      background-color: ${theme.color.backgroundAccent};
+      color:white;
+      font-family: "Courier New";
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      word-wrap: break-word;
+    }
   `);
+
+  const onClickLayer = useCallback((e: any) => {
+    const rid = e.target.parentNode.getAttribute('data-rid');
+    setLayerSel(parseInt(rid));
+    return;
+  },[layerSel]);
+
+  const parseCmdPhrase = useCallback((cmd:string, max=0)=>{
+    let parsed = cmd.replace("#(nop)","").replace("/bin/sh -c ", "");
+
+    return (!!max && parsed.length > max)
+      ? parsed.slice(0, 30)+"..."
+      : parsed;
+
+  },[]);
 
 
   return(<div >
@@ -127,22 +132,33 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
         <Typography.Title5> Image Layers </Typography.Title5>
 
         <div css={containerStyle}>
+
           <div css={layerBlock}>
             {imgBlob.history && imgBlob.history.map((h, k)=>(
-              <div className={'lrow'}>
+              <div className={'lrow ' + (layerSel == k?"selected":"")} onClick={onClickLayer} data-rid={k}>
                 <div className={'rownum'}> {k+1} </div>
                 <div className={'ctx'}>
-                  {h.created_by.replace("#(nop)","").replace("/bin/sh -c ", "").slice(0, 30)+"..."}
+                  {
+                    parseCmdPhrase(h.created_by||"", 30)
+                  }
                 </div>
               </div>
             ))}
           </div>
 
+
           <div css={cmdBlock}>
-            right
+            {
+              (layerSel != null) && (imgBlob.history) &&
+              <p>
+                {
+                  parseCmdPhrase(""+imgBlob.history[layerSel].created_by)
+                }
+              </p>
+            }
           </div>
 
-        </div>
+        </div> {/** End Of Container */}
 
       </div>
     </div>
