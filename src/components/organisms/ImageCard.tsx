@@ -22,8 +22,6 @@ const cardBody = css`
 
 const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
 
-  // console.log(shadowStyleOnHover);
-  // console.log(shadowStyle);
   const cardWrap = useThemedStyle(theme => css`
     border: 1px solid ${theme.color.borderPrimary};
     ${flexRow}
