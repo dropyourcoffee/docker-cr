@@ -80,7 +80,7 @@ const ImageLayerSection = ({imgBlob}:ImageLayerSectionProps) => {
   return <>
     <div css={layerBlock}>
       {imgBlob.history && imgBlob.history.map((h, k)=>(
-        <div className={'lrow ' + (layerSel == k?"selected":"")} onClick={onClickLayer} data-rid={k}>
+        <div className={'lrow ' + (layerSel == k?"selected":"")} onClick={onClickLayer} data-rid={k} key={k}>
           <div className={'rownum'}> {k+1} </div>
           <div className={'ctx'}>
             {
