@@ -1,6 +1,5 @@
 import {ImageProfile, ImageTag} from "@typedef/models";
-import {ApiResponse} from "./client";
-
+import {request, ApiResponse} from "./client";
 /**
  * Fetch general profile for {name} image
  * */
@@ -92,6 +91,7 @@ export async function reqImageTagList(name: string): Promise<ImageTag[]> {
 export async function reqFetchImages (): Promise<ImageProfile[]> {
 
   const mockRequest = async (option:{params:any}): Promise<any> => //{
+
     new Promise((resolve, _) => {
       setTimeout(() => {
         resolve({
@@ -107,7 +107,11 @@ export async function reqFetchImages (): Promise<ImageProfile[]> {
 
 
   try {
-    const res: ApiResponse<ImageProfile[]> = await mockRequest({params:{name}});
+    // const res: ApiResponse<ImageProfile[]> = await mockRequest({params:{name}});
+    const res  = await request({
+      url:"/_catalog_list",
+    });
+    console.log('res', res);
 
     if (res.success && res.data)
       return res.data;
