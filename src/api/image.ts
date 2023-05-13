@@ -109,12 +109,19 @@ export async function reqFetchImages (): Promise<ImageProfile[]> {
   try {
     // const res: ApiResponse<ImageProfile[]> = await mockRequest({params:{name}});
     const res  = await request({
-      url:"/_catalog_list",
+      url:"/api/_catalog_list",
     });
-    console.log('res', res);
+    console.log(res.data)
+    // console.log('res', res.data.map(d=>({
+    //   ...d,
+    //   lastUpdate: new Date(d.lastUpdate)
+    // })) );
 
     if (res.success && res.data)
-      return res.data;
+      return {
+        ...res.data,
+        lastUpdate: new Date(res.data.lastUpdate)
+      };
     else{
       console.error(res.error);
       throw res.error;

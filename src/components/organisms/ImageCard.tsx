@@ -49,6 +49,9 @@ const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
         <Typography.Base>By <b>{author}</b></Typography.Base>
       }
 
+      {console.log(lastUpdate)}
+      {console.log(lastUpdate instanceof Date)}
+      {console.log(typeof lastUpdate)}
       {lastUpdate && lastUpdate instanceof Date &&
         <Typography.Base>Updated on {lastUpdate.toLocaleString()}</Typography.Base>
       }

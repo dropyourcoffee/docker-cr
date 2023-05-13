@@ -3,6 +3,15 @@ import axios from "axios";
 
 const router = new Router();
 
+router.get("/", async (ctx) => {
+  ctx.body = {
+    success:true,
+    data:"hello world"
+  };
+
+  return;
+});
+
 router.get("/_catalog_list", async (ctx) => {
 
   const {data: {repositories:repos}} = await axios.get("http://localhost:5000/v2/_catalog");
@@ -15,7 +24,10 @@ router.get("/_catalog_list", async (ctx) => {
       const r = await axios.get(`http://localhost:5000/v2/${name}/manifests/${tags[0]}`);
       // console.log('l', r.data);
       // console.log('l', r.data.fsLayers);
-      console.log(JSON.parse(r.data.history));
+
+      const {
+        created: lastUpdate
+      } = JSON.parse(r.data.history[0].v1Compatibility);
       /**
        * [
        {
@@ -44,6 +56,7 @@ router.get("/_catalog_list", async (ctx) => {
 
       return {
         name,
+        lastUpdate,
         tags
       }
     })
@@ -60,4 +73,4 @@ router.get("/_catalog_list", async (ctx) => {
   return;
 });
 
-export default router;
+export default new Router().use('/api', router.routes()).routes();

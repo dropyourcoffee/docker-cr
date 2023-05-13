@@ -1,5 +1,8 @@
 import axios , {AxiosRequestConfig}  from "axios";
+import env from "../env";
 
+
+const {API_URL: baseURL} = env;
 
 export interface ApiResponse<T> {
   success: boolean,
@@ -8,7 +11,7 @@ export interface ApiResponse<T> {
 }
 
 const client = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL,
   timeout: 15*1000
 });
 
