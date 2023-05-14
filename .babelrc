@@ -4,7 +4,8 @@
       "@babel/preset-react",
       { "runtime": "automatic", "importSource": "@emotion/react" }
     ],
-    "@babel/typescript"
+    "@babel/typescript",
+//    "es2015"
   ],
   "plugins": [
 //    "@babel/plugin-transform-runtime",

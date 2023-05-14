@@ -15,12 +15,10 @@ const colorTheme = {
 };
 
 root.render(
-  <React.StrictMode>
     <ThemeProvider theme={colorTheme}>
       <GlobalStyles />
       <App />
     </ThemeProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
