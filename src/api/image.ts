@@ -111,17 +111,14 @@ export async function reqFetchImages (): Promise<ImageProfile[]> {
     const res  = await request({
       url:"/api/_catalog_list",
     });
-    console.log(res.data)
-    // console.log('res', res.data.map(d=>({
-    //   ...d,
-    //   lastUpdate: new Date(d.lastUpdate)
-    // })) );
 
     if (res.success && res.data)
-      return {
-        ...res.data,
-        lastUpdate: new Date(res.data.lastUpdate)
-      };
+      return [
+        ...(res.data.map(d => ({
+          ...d,
+          lastUpdate: new Date(d.lastUpdate)
+        }))),
+      ];
     else{
       console.error(res.error);
       throw res.error;
