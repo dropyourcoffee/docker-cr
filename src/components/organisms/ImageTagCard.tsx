@@ -58,15 +58,19 @@ const ImageTagCard = ({name:tagName, author, digest, size, lastUpdate}: ImageTag
       <div className={'header'}>
         <Typography.Body1>Tag</Typography.Body1>
         <NavLink className={'taglink'} to={"history"}>{tagName}</NavLink>
-        <Typography.Body1>{`Last pushed ${timeSince(lastUpdate)}`}</Typography.Body1>
+        {/*<Typography.Body1>{`Last pushed ${timeSince(lastUpdate)}`}</Typography.Body1>*/}
       </div >
       <div className={'body'}>
         <div>
-          <span>DIGEST</span>
+          <span>IMAGE DIGEST</span>
           <span>SIZE</span>
         </div>
         <div>
-          <span className={'taglink'}>{digest.replace("sha256:","").slice(0,13)}</span>
+          <span className={'taglink'}>
+            <NavLink className={'taglink'} to={"history"}>
+              {digest.replace("sha256:","").slice(0,13)}
+            </NavLink>
+          </span>
           <span>{formatBytes(size)}</span>
         </div>
       </div >

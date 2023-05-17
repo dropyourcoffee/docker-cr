@@ -1,33 +1,24 @@
 import {ImageProfile, ImageTag} from "@typedef/models";
 import {request, ApiResponse} from "./client";
+import {AxiosRequestConfig} from "axios";
+
 /**
  * Fetch general profile for {name} image
  * */
 export async function reqImageProfile(name: string): Promise<ImageProfile> {
 
-  const mockRequest = async (option:{params:any}): Promise<any> => //{
-    new Promise((resolve, _) => {
-      setTimeout(() => {
-        resolve({
-          success: true,
-          data: {
-            name,
-            author: "dropyourcoffee",
-            desc: "Up-to-date Image",
-            lastUpdate: new Date(),
-            nTags: 2
-          }
-          // error: Error("cannot fetch image")
-        });
-      }, 600);
-    });
-
 
   try {
-    const res: ApiResponse<ImageProfile> = await mockRequest({params:{name}});
+    const res: ApiResponse<ImageProfile> =  await request({
+      url:"/api/_catalog_list",
+      params:{name}
+    });
 
     if (res.success && res.data)
-      return res.data;
+      return {
+        ...(res.data),
+        ...(res.data.lastUpdate && {lastUpdate: new Date(res.data.lastUpdate)}),
+      };
     else{
       console.error(res.error);
       throw res.error;
@@ -40,43 +31,31 @@ export async function reqImageProfile(name: string): Promise<ImageProfile> {
 
 }
 
-export async function reqImageTagList(name: string): Promise<ImageTag[]> {
-
-  const mockRequest = async (option:{params:any}): Promise<any> => //{
-    new Promise((resolve, _) => {
-      setTimeout(() => {
-        resolve({
-          success: true,
-          data: [
-            {
-              name: "latest",
-              author: "dropyourcoffee",
-              digest: "sha256:def822f9851ca422481ec6fee59a9966f12b351c62ccb9aca841526ffaa9f748",
-              size: 10000000,
-              lastUpdate: new Date(),
-            },
-            {
-              name: "1.0.0",
-              author: "dropyourcoffee",
-              digest: "sha256:def822f9851ca422481ec6fee59a9966f12b351c62ccb9aca841526ffaa9f748",
-              size: 11000000,
-              lastUpdate: new Date(Date.now() - 1 * 86400000),
-            },
-          ]
-        });
-      }, 600);
-    });
+export async function reqImageTagInfoList(name: string, tags: string[]): Promise<ImageTag[]> {
 
 
   try {
-    const res: ApiResponse<ImageTag[]> = await mockRequest({params:{name}});
+    if (!tags) return[];
 
-    if (res.success && res.data)
-      return res.data;
-    else{
-      console.error(res.error);
-      throw res.error;
-    }
+    const data = await Promise.all(tags.map(async tag=> {
+
+        const res: ApiResponse<ImageTag[]> = await request({
+          url: `/api/tag_profile`,
+          params:{name, tag},
+        });
+        return res.data;
+    }));
+
+    if(data.length)
+      return data;
+    else
+      return [];
+
+    const res = {
+      success:true,
+      error:false,
+      data
+    };
 
   }
   catch(error) {
@@ -90,25 +69,9 @@ export async function reqImageTagList(name: string): Promise<ImageTag[]> {
  * */
 export async function reqFetchImages (): Promise<ImageProfile[]> {
 
-  const mockRequest = async (option:{params:any}): Promise<any> => //{
-
-    new Promise((resolve, _) => {
-      setTimeout(() => {
-        resolve({
-          success: true,
-          data: [
-            {name: 'foo', author:"dropyourcoffee", desc:"do not pull this", nTags: 1},
-            {name: 'bar', author:"dropyourcoffee", desc:"Up-to-date Image", lastUpdate:new Date(), nTags: 2},
-            {name: 'baz', author:"dropyourcoffee", lastUpdate:new Date('2023-04-01'), nTags: 2}
-          ]
-        });
-      }, 600);
-    });
-
 
   try {
-    // const res: ApiResponse<ImageProfile[]> = await mockRequest({params:{name}});
-    const res  = await request({
+    const res: ApiResponse<ImageProfile[]>  = await request({
       url:"/api/_catalog_list",
     });
 
@@ -116,7 +79,8 @@ export async function reqFetchImages (): Promise<ImageProfile[]> {
       return [
         ...(res.data.map(d => ({
           ...d,
-          lastUpdate: new Date(d.lastUpdate)
+
+          ...(d.lastUpdate && {lastUpdate: new Date(d.lastUpdate)}),
         }))),
       ];
     else{

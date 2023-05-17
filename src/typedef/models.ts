@@ -4,7 +4,7 @@ export interface ImageProfile {
   name: string,
   author?: string;
   size?: number;
-  lastUpdate?: Date;
+  lastUpdate: Date;
   desc?: string;
   tags: Array<string>;
 }

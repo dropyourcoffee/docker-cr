@@ -3,7 +3,7 @@ import {ClipLoader} from "react-spinners";
 import {css} from "@emotion/react";
 
 import { ImageTag } from "@typedef/models";
-import { reqImageProfile, reqImageTagList } from "@api/image";
+import { reqImageProfile, reqImageTagInfoList } from "@api/image";
 import { useLoadingCallback } from "@hooks/useLoadingCallback";
 import { useThemedStyle } from "@hooks/useThemedStyle";
 import { flexCenter } from "@styles";
@@ -18,28 +18,21 @@ export interface ImageTemplateProps {
 
 const ImageTemplate = ({img:name}: ImageTemplateProps)=>{
 
-  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name, nTags:0});
+  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name, lastUpdate:new Date(0), tags:[]});
   const [imgTags, setImgTags] = useState<ImageTag[]>([]);
 
   const {callback:loadImage, isLoading: isLoadingImages} = useLoadingCallback(async()=>{
-
-    await Promise.all([
-      (async ()=>{
-        const img: ImageCardProps = await reqImageProfile(name);
-        setImgInfo(img);
-      })(),
-      (async ()=>{
-        const tags: Array<ImageTag> = await reqImageTagList(name);
-        setImgTags(tags);
-
-      })(),
-
-    ]);
+    const img: ImageCardProps = await reqImageProfile(name);
+    setImgInfo(img);
+    const tags: Array<ImageTag> = await reqImageTagInfoList(name, img.tags);
+    setImgTags(tags);
 
   },[name]);
 
+
   useEffect(()=>{
     loadImage();
+    window.scrollTo(0, 0);
   },[]);
 
   const repotagBodyContainer = useThemedStyle(theme=>css`
