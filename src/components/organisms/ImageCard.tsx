@@ -3,8 +3,8 @@ import {NavLink} from "react-router-dom";
 import { css } from "@emotion/react";
 import {
   flexCenter,
-  flexRow,
-  popupShadowStyleOnHover,
+  flexRow, flexRowBetween,
+  popupShadowStyleOnHover
 } from "@styles";
 import * as Typography from "@styles/typography";
 import Divider from "@components/atoms/Divider";
@@ -20,7 +20,7 @@ const cardBody = css`
   flex: 1;
 `;
 
-const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
+const ImageCard = ({name, author="", lastUpdate, tags, desc=""}:ImageCardProps)=>{
 
   const cardWrap = useThemedStyle(theme => css`
     border: 1px solid ${theme.color.borderPrimary};
@@ -39,18 +39,23 @@ const ImageCard = ({name, author="", lastUpdate, desc=""}:ImageCardProps)=>{
     </div>
 
     <div css={cardBody}>
-      <Typography.Base >
-        <b>{name}</b>
-      </Typography.Base>
+      <div css={flexRowBetween}>
+        <Typography.Base >
+          <b>{name}</b>
+        </Typography.Base>
+        <Typography.Base >
+          tags: {tags.length}
+        </Typography.Base>
+      </div>
 
       <Divider/>
 
-      {author &&
-        <Typography.Base>By <b>{author}</b></Typography.Base>
-      }
 
-      {lastUpdate && lastUpdate instanceof Date &&
-        <Typography.Base>Updated on {lastUpdate.toLocaleString()}</Typography.Base>
+      <Typography.Base>
+        {lastUpdate && lastUpdate instanceof Date && `Updated on ${lastUpdate.toLocaleString()}`}
+      </Typography.Base>
+      {author &&
+      <Typography.Base>By <b>{author}</b></Typography.Base>
       }
       {desc &&
         <Typography.Base css={css`margin-top: 10px;`}>{desc}</Typography.Base>
