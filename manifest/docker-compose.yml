@@ -8,5 +8,14 @@ services:
     - ./registry:/var/lib/registry
     ports:
     - 5000:5000
-    network_mode: default
+    network_mode: host
+
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    depends_on:
+      - apiserver
+    ports:
+    - 80:80
 

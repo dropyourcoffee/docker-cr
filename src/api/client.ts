@@ -2,7 +2,7 @@ import axios , {AxiosRequestConfig}  from "axios";
 import env from "../env";
 
 
-const {API_URL: baseURL} = env;
+const {API_URL="[::1]"} = env;
 
 export interface ApiResponse<T> {
   success: boolean,
@@ -11,7 +11,7 @@ export interface ApiResponse<T> {
 }
 
 const client = axios.create({
-  baseURL,
+  baseURL: `http://${API_URL.replace(/(^\w+:|^)\/\//, "")}`,
   timeout: 15*1000
 });
 
