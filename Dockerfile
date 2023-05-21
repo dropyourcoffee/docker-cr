@@ -23,7 +23,6 @@ COPY --from=builder /app/build /app/build
 RUN rm /etc/nginx/conf.d/default.conf
 COPY manifest/nginx/nginx.conf /etc/nginx/conf.d
 
-RUN nginx -t
 
 
 EXPOSE 80

@@ -26,3 +26,4 @@ yarn-error.log*
 yarn.lock
 manifest/registry/
 .env
+server/node_modules

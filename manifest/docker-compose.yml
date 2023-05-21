@@ -10,13 +10,14 @@ services:
     - 5000:5000
 
   apiserver:
-    build:
-      context: ..
-      dockerfile: server.Dockerfile
+    build: ../server
     depends_on:
     - registry
     ports:
     - 3000:3000
+    environment:
+      REGISTRY_ENDPOINT: http://registry:5000
+
 
   web:
     build:
