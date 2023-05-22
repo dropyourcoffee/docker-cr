@@ -1,49 +1,28 @@
 import React from "react";
-import { css } from "@emotion/react";
-import { useTheme } from "@emotion/react";
-import { borderBottomStyle } from "@styles";
+import { Route, BrowserRouter as Router,  Routes} from 'react-router-dom';
+import Layout from "@containers/Layout";
+import MainBody from "@containers/MainBody";
+import MainPage from "@pages/Main";
+import ImagePage from "@pages/Image";
+import HistoryPage from "@pages/Image/History";
+import Header from "@components/organisms/Header";
 
 function App() {
-  const theme = useTheme();
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <div
-        css={[
-          borderBottomStyle(theme),
-          css`
-            height: 150px;
-            overflow-y: scroll;
-          `,
-        ]}
-      >
-        <p
-          css={css`
-            color: red;
-          `}
-        >
-          ads
-        </p>
-        <div
-          css={css`
-            height: 300px;
-            background-color: gray;
-          `}
-        ></div>
-      </div>
+      <Router>
+        <Layout>
+          <Header/>
+          <MainBody>
+            <Routes>  {/* Group of routes */}
+              <Route path="/" element={<MainPage/>} />
+              <Route path="/im/:im" element={<ImagePage/>} />
+              <Route path="/im/:im/history" element={<HistoryPage/>} />
+            </Routes>
+          </MainBody>
+        </Layout>
+      </Router>
     </div>
   );
 }

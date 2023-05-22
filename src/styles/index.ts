@@ -18,7 +18,7 @@ export const zIndex = {
 };
 
 export const borderStyle = (color?: string) => css`
-  border: solid 1px ${color || Colors.primary6};
+  border: solid 1px ${color || Colors.primary};
 `;
 
 export const borderTopStyle = (theme: Theme) => css`
@@ -30,16 +30,18 @@ export const borderBottomStyle = (theme: Theme) => css`
 `;
 
 export const shadowStyle = css`
-  box-shadow: inset 0 0 0 0 ${Colors.divider};
+  box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.15);
 `;
 
+
 export const shadowTopStyle = css`
-  box-shadow: inset 0 1px 0 0 ${Colors.divider};
+  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.15);
 `;
 
 export const shadowBottomStyle = css`
-  box-shadow: inset 0 -1px 0 0 ${Colors.divider};
+  box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.15);
 `;
+
 
 export const popupShadowStyle = css`
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.12);
@@ -47,6 +49,12 @@ export const popupShadowStyle = css`
 
 export const popupBackgroundStyle = css`
   background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const popupShadowStyleOnHover = css`
+  &:hover{
+    ${popupShadowStyle}
+  }
 `;
 
 export const notDraggable = css`
@@ -66,7 +74,7 @@ export const dimOpacityStyle = css`
 export const selectOpacityStyle = css`
   &:focus-within {
     opacity: 0.8;
-    // background-color: ${Colors.primary6};
+    // background-color: ${Colors.primary};
   }
 `;
 
@@ -161,7 +169,7 @@ export const scrollbarStyle = (theme: Theme) => css`
   ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: ${theme.color.primary6};
+    background: ${theme.color.primary};
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   }
 `;

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "lib": ["ES2020", "DOM"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "target": "es2016",                                  /* Set the Java"Script language version for emitted JavaScript and include compatible library declarations. */
+    "lib": ["es2018", "dom"],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     "jsx": "react-jsx",                                /* Specify what JSX code is generated. */
     "jsxImportSource": "@emotion/react",
 
@@ -9,15 +9,16 @@
     "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
     "baseUrl": ".",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
-      "@hooks/*": ["hooks/*"],
-      "@components/*": ["components/*"],
-      "@layouts/*": ["layouts/*"],
-      "@pages/*": ["pages/*"],
-      "@utils/*": ["utils/*"],
-      "@typings/*": ["typings/*"],
-      "@store": ["store"],
+      "@api/*": ["src/api/*"],
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"],
+      "@config/*": ["src/config/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
-      "@styles": ["src/styles"]
+      "@styles": ["src/styles"],
+      "@typedef/*": ["src/typedef/*"],
+      "@util": ["src/util"]
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     "resolveJsonModule": true,                        /* Enable importing .json files. */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
@@ -29,9 +30,9 @@
 
   "include": [
     "src",
-    "src/interfaces/*.d.ts"
+    "src/types/*.d.ts"
 
   ],
-  "typeRoots": ["interfaces"]
+  "typeRoots": ["src/typedef"]
 
 }
