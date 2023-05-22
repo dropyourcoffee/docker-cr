@@ -1,0 +1,24 @@
+{
+  "name": "docker-cr-server",
+  "version": "1.0.0",
+  "description": "backend API for docker-cr",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node --watch . -e ts .",
+    "start": "tsc && node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dexter Jung",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "@types/koa": "^2.13.6",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa__cors": "^4.0.0",
+    "@types/node": "^20.2.3",
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "koa": "^2.14.2",
+    "koa-router": "^12.0.0"
+  }
+}

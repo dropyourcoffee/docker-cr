@@ -8,5 +8,26 @@ services:
     - ./registry:/var/lib/registry
     ports:
     - 5000:5000
-    network_mode: default
+
+  apiserver:
+    build: ../server
+    depends_on:
+    - registry
+    ports:
+    - 3000:3000
+    environment:
+      REGISTRY_ENDPOINT: http://registry:5000
+
+
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    depends_on:
+      - apiserver
+    ports:
+    - 80:80
+
+
+
 
