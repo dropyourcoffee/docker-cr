@@ -4,6 +4,8 @@
   "description": "backend API for docker-cr",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --exec ts-node --watch . -e ts .",
+    "start": "tsc && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dexter Jung",
