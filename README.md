@@ -9,7 +9,7 @@ Deploy your private container registry with a web ui that provides a complete we
 ## Features
 
  - Private Docker Registry
- - Web UI for Image Inspection
+ - Web Management tool
  - AWS S3 Support for Image Layers (TBU)
  
  
@@ -21,7 +21,7 @@ As shown in the diagram below, the system consists of three microservices; a Rea
 ![overview](https://github.com/dropyourcoffee/docker-cr/assets/32614390/bef97291-c1c4-46c1-87dd-ad5059bd5e23)
 
 The `web server` is the implementation of web UI, and the `api server` takes the role of a bridge between the web and the registry REST API.
-Uploaded image layers can be stored at different storage systems including local file system, or cloud storage such as AWS S3.
+Uploaded image layers can be stored at different storage systems such as local file system or cloud storage such as AWS S3.
 
 
 
@@ -52,6 +52,7 @@ Uploaded image layers can be stored at different storage systems including local
 
 |                   |                                                    | Default               |
 |-------------------|----------------------------------------------------|-----------------------|
+| PORT              | Listening port                                     | 3000                  |
 | REGISTRY_ENDPOINT | URL for registry endpoint.                         | http://localhost:5000 |
 | REGISTRY_USERNAME | Username for registry for BA(Basic Authentication) |                       |
 | REGISTRY_PASSWD   | Password for registry                              |                       |
