@@ -3,11 +3,15 @@ import {css} from "@emotion/react";
 import {useThemedStyle} from "@hooks/useThemedStyle";
 import { flexCenter, flexRow } from "@styles";
 import { BsFillBoxFill } from "react-icons/bs";
-import {ImageProfile} from "@typedef/models";
+import { ImageBlob, ImageProfile } from "@typedef/models";
+import { Readable } from "@util/suspense";
 
 
-export interface ImageBannerProps extends Omit<ImageProfile, 'nTags'> {
-
+// export interface ImageBannerProps extends Omit<ImageProfile, 'nTags'> {
+//
+// }
+export interface ImageBannerProps {
+  imageProfile: Readable <Omit<ImageProfile, 'nTags'>>,
 }
 
 const BannerInner = css`
@@ -17,7 +21,14 @@ const BannerInner = css`
       height: 180px;
 `;
 
-const ImageBanner = ({name:imageName, author, size, desc, lastUpdate}:ImageBannerProps)=>{
+
+const ImageBanner = ({imageProfile}:ImageBannerProps)=>{
+
+  const {
+    name: imageName,
+    author,
+    lastUpdate
+  } = imageProfile.read();
 
   const BannerWrap = useThemedStyle(theme => css`
       width: 100%;

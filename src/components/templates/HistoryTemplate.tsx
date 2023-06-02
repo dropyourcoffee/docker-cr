@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useCallback} from "react";
 import {css} from "@emotion/react";
-
 import { ImageBlob } from "@typedef/models";
-import { reqImageBlob, reqImageProfile, reqImageTagList } from "@api/image";
+import { reqImageBlob, reqImageProfile} from "@api/image";
 import { useLoadingCallback } from "@hooks/useLoadingCallback";
 import { useThemedStyle } from "@hooks/useThemedStyle";
 import { flexRow } from "@styles";
@@ -11,6 +10,7 @@ import ImageBanner from  "@components/organisms/ImageBanner";
 import { ImageCardProps } from "@components/organisms/ImageCard";
 import ImageLayerSection from "@components/organisms/ImageLayerSection";
 import ImageSummarySection from "@components/organisms/ImageSummarySection";
+import {suspensify} from "@util/suspense";
 
 export interface HistoryTemplateProps {
   img: string;
@@ -20,8 +20,8 @@ export interface HistoryTemplateProps {
 const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
 
   const [imgInfo, setImgInfo] = useState<ImageCardProps>({name, nTags:0});
-  const [imgBlob, setImgBlob] = useState<Partial<ImageBlob>>({});
-  // const [layerSel, setLayerSel] = useState<number|null>(null);
+  // const [imgBlob, setImgBlob] = useState<Partial<ImageBlob>>({});
+  const [layerSel, setLayerSel] = useState<number|null>(null);
 
   const {callback:loadImage, isLoading: isLoadingImages} = useLoadingCallback(async()=>{
 
@@ -30,19 +30,19 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
         const img: ImageCardProps = await reqImageProfile(name);
         setImgInfo(img);
       })(),
-      (async ()=>{
-        const blob: ImageBlob = await reqImageBlob(name);
-        setImgBlob(blob);
-
-      })(),
+      // (async ()=>{
+      //   const blob: ImageBlob = await reqImageBlob(name);
+      //   setImgBlob(blob);
+      //
+      // })(),
 
     ]);
 
   },[name]);
 
-  useEffect(()=>{
-    loadImage();
-  },[]);
+  // useEffect(()=>{
+  //   loadImage();
+  // },[]);
 
   const repotagBodyContainer = useThemedStyle(theme=>css`
     height: 100vh;
@@ -73,8 +73,13 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
     cmd: '/bin/sh'
   };
 
+  const imgInfo2 = suspensify(reqImageProfile, name);
+  const blobData = suspensify(reqImageBlob, name);
+
   return(<div >
-    <ImageBanner {...imgInfo}/>
+    <React.Suspense fallback={'loading...'}>
+      <ImageBanner imageProfile={imgInfo2}/>
+    </React.Suspense>
     <div css={repotagBodyContainer}>
 
 
@@ -90,7 +95,9 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
         <Typography.Title5> Image Layers </Typography.Title5>
 
         <div css={containerStyle}>
-          <ImageLayerSection imgBlob={imgBlob}/>
+          <React.Suspense fallback={'loading..'}>
+            <ImageLayerSection blobData={blobData}/>
+          </React.Suspense>
         </div>
 
 

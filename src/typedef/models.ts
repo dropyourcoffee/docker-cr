@@ -6,6 +6,7 @@ export interface ImageProfile {
   size?: number;
   lastUpdate: Date;
   desc?: string;
+  nTags?: number;
   tags: Array<string>;
 }
 

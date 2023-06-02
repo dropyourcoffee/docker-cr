@@ -18,7 +18,7 @@ export interface ImageTemplateProps {
 
 const ImageTemplate = ({img:name}: ImageTemplateProps)=>{
 
-  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name, lastUpdate:new Date(0), tags:[]});
+  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name,  tags:[]});
   const [imgTags, setImgTags] = useState<ImageTag[]>([]);
 
   const {callback:loadImage, isLoading: isLoadingImages} = useLoadingCallback(async()=>{
