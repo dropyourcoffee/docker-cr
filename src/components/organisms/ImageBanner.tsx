@@ -14,7 +14,7 @@ export interface ImageBannerProps {
   imageProfile: Readable <Omit<ImageProfile, 'nTags'>>,
 }
 
-const BannerInner = css`
+export const BannerInner = css`
       // border: 1px solid black;
       ${flexRow}
       padding: 3em 0.5em;

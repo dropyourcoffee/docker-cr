@@ -3,7 +3,7 @@ import {ClipLoader} from "react-spinners";
 import {css} from "@emotion/react";
 
 import { ImageTag } from "@typedef/models";
-import { reqImageProfile, reqImageTagInfoList } from "@api/image";
+import { reqImageBlob, reqImageProfile, reqImageTagInfoList } from "@api/image";
 import { useLoadingCallback } from "@hooks/useLoadingCallback";
 import { useThemedStyle } from "@hooks/useThemedStyle";
 import { flexCenter } from "@styles";
@@ -11,6 +11,9 @@ import * as Typography from "@styles/typography";
 import ImageBanner from  "@components/organisms/ImageBanner";
 import { ImageCardProps } from "@components/organisms/ImageCard";
 import ImageTagCard from "@components/organisms/ImageTagCard";
+import { suspensify } from "@util/suspense";
+import React from "react";
+import ImageBannerPlaceholder from "@components/organisms/ImageBannerPlaceholder";
 
 export interface ImageTemplateProps {
   img: string;
@@ -18,12 +21,12 @@ export interface ImageTemplateProps {
 
 const ImageTemplate = ({img:name}: ImageTemplateProps)=>{
 
-  const [imgInfo, setImgInfo] = useState<ImageCardProps>({name,  tags:[]});
+  // const [imgInfo, setImgInfo] = useState<ImageCardProps>({name,  tags:[]});
   const [imgTags, setImgTags] = useState<ImageTag[]>([]);
 
   const {callback:loadImage, isLoading: isLoadingImages} = useLoadingCallback(async()=>{
     const img: ImageCardProps = await reqImageProfile(name);
-    setImgInfo(img);
+    // setImgInfo(img);
     const tags: Array<ImageTag> = await reqImageTagInfoList(name, img.tags);
     setImgTags(tags);
 
@@ -43,8 +46,12 @@ const ImageTemplate = ({img:name}: ImageTemplateProps)=>{
   `);
 
 
+  const imgInfo = suspensify(reqImageProfile, name);
+
   return(<div >
-    <ImageBanner {...imgInfo}/>
+    <React.Suspense fallback={<ImageBannerPlaceholder name={name}/>}>
+      <ImageBanner imageProfile={imgInfo}/>
+    </React.Suspense>
     <div css={repotagBodyContainer}>
 
       <div className={'container'} >

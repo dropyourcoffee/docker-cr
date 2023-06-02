@@ -11,6 +11,7 @@ import { ImageCardProps } from "@components/organisms/ImageCard";
 import ImageLayerSection from "@components/organisms/ImageLayerSection";
 import ImageSummarySection from "@components/organisms/ImageSummarySection";
 import {suspensify} from "@util/suspense";
+import ImageBannerPlaceholder from "@components/organisms/ImageBannerPlaceholder";
 
 export interface HistoryTemplateProps {
   img: string;
@@ -76,8 +77,9 @@ const HistoryTemplate = ({img:name}: HistoryTemplateProps)=>{
   const imgInfo2 = suspensify(reqImageProfile, name);
   const blobData = suspensify(reqImageBlob, name);
 
+  console.log('imginfo2', imgInfo2);
   return(<div >
-    <React.Suspense fallback={'loading...'}>
+    <React.Suspense fallback={<ImageBannerPlaceholder name={name}/>}>
       <ImageBanner imageProfile={imgInfo2}/>
     </React.Suspense>
     <div css={repotagBodyContainer}>
