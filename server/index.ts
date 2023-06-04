@@ -1,8 +1,8 @@
 import Koa from "koa";
 import cors from "@koa/cors";
-import apiRoot from "./router";
 import dotenv from "dotenv";
 dotenv.config();
+import apiRoot from "./router";
 
 const App = new Koa();
 

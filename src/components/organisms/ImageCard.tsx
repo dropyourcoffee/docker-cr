@@ -11,7 +11,7 @@ import Divider from "@components/atoms/Divider";
 import {useThemedStyle} from "@hooks/useThemedStyle";
 import {ImageProfile} from "@typedef/models";
 
-export interface ImageCardProps extends Omit<ImageProfile, 'size'> {
+export interface ImageCardProps extends Omit<ImageProfile, 'tags' | 'lastUpdate'> {
 
 }
 
