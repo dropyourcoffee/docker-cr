@@ -33,4 +33,8 @@ case $PERSIST_OPT in
 
 esac
 
+###
 
+
+echo "Yaml file has been generated :: $OUTPUT_YML"
+echo "try 'docker-compose up'"
