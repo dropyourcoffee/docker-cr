@@ -3,14 +3,17 @@ import React, { useCallback, useState } from "react";
 import { useThemedStyle } from "@hooks/useThemedStyle";
 import { css } from "@emotion/react";
 import { flexRow } from "@styles";
+import {Readable} from "@util/suspense";
+
 
 export interface ImageLayerSectionProps {
-  imgBlob: Partial<ImageBlob>
+  blobData: Readable <ImageBlob>,
 }
 
-const ImageLayerSection = ({imgBlob}:ImageLayerSectionProps) => {
+const ImageLayerSection = ({blobData}:ImageLayerSectionProps) => {
 
   const [layerSel, setLayerSel] = useState<number|null>(null);
+  const blob = blobData.read();
 
   const layerBlock = useThemedStyle(theme=>css`
     width: 40%;
@@ -79,7 +82,7 @@ const ImageLayerSection = ({imgBlob}:ImageLayerSectionProps) => {
 
   return <>
     <div css={layerBlock}>
-      {imgBlob.history && imgBlob.history.map((h, k)=>(
+      {blob.history && blob.history.map((h, k)=>(
         <div className={'lrow ' + (layerSel == k?"selected":"")} onClick={onClickLayer} data-rid={k} key={k}>
           <div className={'rownum'}> {k+1} </div>
           <div className={'ctx'}>
@@ -94,10 +97,10 @@ const ImageLayerSection = ({imgBlob}:ImageLayerSectionProps) => {
 
     <div css={cmdBlock}>
       {
-        (layerSel != null) && (imgBlob.history) &&
+        (layerSel != null) && (blob.history) &&
         <p>
           {
-            parseCmdPhrase(""+imgBlob.history[layerSel]?.created_by)
+            parseCmdPhrase(""+blob.history[layerSel]?.created_by)
           }
         </p>
       }
